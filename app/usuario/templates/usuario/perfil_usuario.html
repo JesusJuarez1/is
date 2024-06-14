@@ -1,0 +1,45 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="container my-5 p-3">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <!-- User Profile Card -->
+            <div class="card shadow">
+                <div class="card-header text-white" style="background-color: #102847;">
+                    <h2 class="mb-0"><i class="fa-solid fa-user"></i> ¡Bienvenida/o {{ usuario.username }}!</h2>
+         
+                    {% if es_coordinador or es_tutor %}
+                        <a href="{% url 'editar' usuario.pk %}" class="btn btn-primary float-end">Editar Perfil</a>
+                    {% endif %}
+                </div>
+                <div class="card-body bg-light">
+                    <p class="lead"><strong>Nombre:</strong> {{ usuario.nombre }}</p>
+                    <p class="lead"><strong>Tipo de usuario:</strong> {{ tipo_cacei }}</p>
+                    <p class="lead"><strong>Email:</strong> {{ usuario.email }}</p>
+                    <p class="lead"><strong>Teléfono:</strong> {{ usuario.telefono }}</p>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'subir_documento' %}" class="btn btn-secondary">Subir documento</a>
+                    <!--<a href="{% url 'solicitar_cambio_actividades' %}" class="btn btn-warning">Solicitar Cambio de Actividades</a>-->
+                </div>
+            </div>
+
+            <!-- Latest Document Card -->
+            <div class="card shadow mt-3">
+                <div class="card-header text-white" style="background-color: #102847;">
+                    <h3><i class="fa-solid fa-file"></i> Último documento subido</h3>
+                </div>
+                <div class="card-body bg-light">
+                    {% if ultimo_documento %}
+                        <p class="lead"><strong>Nombre del documento:</strong> {{ ultimo_documento.nombre }}</p>
+                        <p><a href="{{ ultimo_documento.archivo.url }}" class="btn btn-primary" download>Descargar documento</a></p>
+                    {% else %}
+                        <p>No se ha subido ningún documento</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

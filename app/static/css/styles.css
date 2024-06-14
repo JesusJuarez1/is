@@ -1,0 +1,83 @@
+body {
+    font-family: Arial, sans-serif; /* Establece una fuente más limpia */
+    background-color: #f4f4f9; /* Un fondo más suave */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center; /* Centra el contenedor del perfil */
+    align-items: center;
+    height: 100vh; /* Utiliza todo el alto de la ventana del navegador */
+}
+
+.profile-container {
+    width: 90%;
+    max-width: 600px;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Sombra sutil para el contenedor */
+    border-radius: 8px;
+}
+
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-header h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #333; /* Color oscuro para el texto */
+}
+
+.edit-button button {
+    background-color: #007BFF; /* Un azul bonito para el botón */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.edit-button button:hover {
+    background-color: #0056b3; /* Un azul más oscuro al pasar el ratón */
+}
+
+.profile-details p {
+    font-size: 16px;
+    color: #666; 
+    margin: 5px 0; 
+}
+.card-header {
+    text-align: left;
+}
+
+.logo {
+    width: 30px; 
+    height: auto; 
+    margin-left: auto;
+}
+
+
+.mb-0 {
+    margin-bottom: 0;
+}
+
+
+.card {
+    border-radius: 0.5rem; /* Rounded borders for the card */
+}
+
+.card-header {
+    font-size: 1.5rem; /* Larger font size for headers */
+}
+
+.lead {
+    font-size: 1.25rem; /* Larger font size for important text */
+}
+
+.btn-light {
+    border-color: #fff; /* Ensure visibility against the background */
+}

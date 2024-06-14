@@ -1,0 +1,42 @@
+version: '3.3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: cacei-app
+    command: python3 manage.py runserver 0.0.0.0:8000
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - 8000:8000
+    volumes:
+      - ./app:/app
+    env_file:
+      - .env
+    environment:
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOST: ${DB_HOST}
+      DEBUG: ${DEBUG}
+      SECRET_KEY: ${SECRET_KEY}
+
+  db:
+    image: mariadb
+    container_name: cacei-db
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    volumes:
+      - db:/var/lib/mysql
+    ports:
+      - 3306:3306
+
+volumes:
+  db:

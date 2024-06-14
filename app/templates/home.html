@@ -1,0 +1,17 @@
+{%  extends "main.html" %}
+{% block content %}
+
+    <div class="card text-center">
+          <div class="card-header">
+            TUTORIAS UAZ
+          </div>
+          <div class="card-body">
+              <h5 class="card-title">Tutorias</h5>
+              <p class="card-text">No te quedes fuera de las tutorias!! ten tu junta con tu tutor</p>
+
+              <!-- REDIRECCIONAR AL LOGIN -->
+              <a href="{% url 'login' %}" class="btn btn-primary">INGRESAR</a>
+          </div>
+    </div>
+
+{% endblock %}

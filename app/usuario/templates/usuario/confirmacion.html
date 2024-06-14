@@ -1,0 +1,12 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="mb-4">¡Se ha subido con éxito tu documento!</h1>
+            <a href="{% url 'lista_documentos' %}" class="btn btn-primary">Ver Documentos</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

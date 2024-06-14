@@ -1,0 +1,4 @@
+django
+mysqlclient
+django-environ==0.8.1
+reportlab==3.6.13

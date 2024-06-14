@@ -1,0 +1,24 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            {% for documento in documentos %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{ documento.nombre }}</h5>
+                    <!-- Formulario de eliminación -->
+                    <form action="{% url 'eliminar_documento' documento.pk %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que quieres eliminar este documento?');">Eliminar</button>
+                    </form>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center">No hay documentos para mostrar.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

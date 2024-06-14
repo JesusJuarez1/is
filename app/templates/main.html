@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <title>SERVICIO DE TUTORIAS</title>
+</head>
+<body>
+    <!-- NAV BAR PARA QUE MUESTRE EN TODAS LOS HTMLS QUE EXTIENDAN DE MAIN -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <!-- NAV PARA MOSTRAR EL TITULO -->
+        <a class="navbar-brand" href="{% url 'home_page' %}">UAZ TUTORIAS</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- NAV QUE MUESTRA COMO MENU DE HAMBURGUESA CUANDO LA PAGINA SE HACE EN MODO DISPOSITIVO MOVIL -->
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <!-- ENCARGADO DE MOSTRAR EL TITULO DE EVALIACIONES Y REDIRECCIONAR A LA PAGINA DE EVALUACIONES -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'evaluaciones' %}">EVALUACIONES</a>
+                </li>
+                <!-- ENCARGADO DE MOSTRAR EL TITULO DE TITULACIONES Y REDIRECCIONAR A LAS FORMAS DE TITULACION -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'mostrar_titulacion' %}">TITULACIONES</a>
+                </li>
+                <!-- ENCARGADO DE MOSTRAR EL TITULO DE LOS DOCENTES Y REDIRECCIONAR A UN LISTADO DE DOCENTES QUE SON TUTORES -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">TUTORES</a>
+                </li>
+                <!-- ENCARGADO DE MOSTRAR EL TITULO DE la TRAYECTORIA ESCOLAR DEL ALUMNO Y REDIRECCIONAR AL APARTADO DE HISTORIALES DE ALUMNOS -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'historial_alumno' %}">TRAYECTORIA ESCOLAR</a>
+                </li>
+            </ul>
+
+            <!-- BOTON ENCARGADO DE MOSTRARSE AL FINAL DEL NAVBAR -->
+            <div class="ms-auto d-flex align-items-center">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'perfil_usuario' user.id %}" class="navbar-text me-3 text-white text-decoration-none">{{ user.nombre }}</a>
+                    <form class="form-inline" method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-primary">Cerrar Sesión</button>
+                    </form>
+                {% else %}
+                    <form class="form-inline">
+                        <a type="button" href="{% url 'login' %}" class="btn btn-outline-primary">LOGIN</a>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- ESTO FUNCIONA PARA AGREGAR CONTENIDO SIN TENER QUE CREAR TODA LA ESTRUCTURA DEL HTML -->
+    {% block content %}
+    {% endblock %}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opciones de Titulación</title>
+    <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7; /* Color de fondo para toda la página */
+            color: #333; /* Color del texto */
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #333; /* Color del texto del título */
+        }
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff; /* Color de fondo para la tabla */
+            border: 2px solid #CDA434; /* Borde de la tabla */
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 10px;
+        }
+        th {
+            background-color: #333399; /* Color de fondo para las celdas de encabezado */
+            color: #fff; /* Color del texto en las celdas de encabezado */
+            font-weight: bold; /* Texto en negrita */
+        }
+        td {
+            background-color: #f2f2f2; /* Color de fondo alternativo para las celdas */
+        }
+    </style>
+</head>
+<body>
+    <h1>Opciones de Titulación</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre de la Opción</th>
+                <th>Descripción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Promedio de 9.0 o mayor a este</td>
+                <td>Esta opción requiere un promedio de 9.0 o mayor en tus calificaciones.</td>
+            </tr>
+            <tr>
+                <td>Tesis</td>
+                <td>Realizar y defender una tesis como requisito para titularse.</td>
+            </tr>
+            <tr>
+                <td>Examen general de conocimientos</td>
+                <td>Presentar y aprobar un examen que abarque todos los conocimientos de la carrera.</td>
+            </tr>
+            <tr>
+                <td>Memorias de prácticas profesionales dirigidas</td>
+                <td>Elaborar un documento que muestre las experiencias y aprendizajes durante las prácticas profesionales.</td>
+            </tr>
+            <tr>
+                <td>Memoria de experiencia profesional</td>
+                <td>Documentar y exponer las experiencias adquiridas durante la práctica profesional.</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+{% endblock %}
+</html>

@@ -1,0 +1,33 @@
+{% extends 'mainTutor.html' %}
+
+{% block content %}
+<h1>Minutas</h1>
+    <table class="table" style="margin-left:20px;">
+        <thead>
+            <tr>
+                <th>Titulo</th>
+                <th>Fecha</th>
+                <th>Minuta</th>
+                <th>Acuerdos</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for minuta in object_list %}
+            <tr>
+                <td>{{ minuta.titulominuta }}</td>
+                <td>{{ minuta.fechaminuta }}</td>
+                <td style="white-space: normal; max-width: 300px; min-height: 100px;">{{ minuta.minuta }}</td>
+                <td style="white-space: normal; max-width: 300px; min-height: 100px;">{{ minuta.acuerdos }}</td>
+                <td>
+                    {% comment %} El enlace de eliminar será un botón {% endcomment %}
+                    <a href="{% url 'eliminar_minuta' minuta.id %}" class="btn btn-danger">Eliminar</a> 
+                    <a href="{% url 'editar_minuta' minuta.id %}" class="btn btn-warning">Editar</a>
+                    <a href="{% url 'generar_pdf_minuta' minuta.id %}" class="btn btn-primary" target="_blank">Descargar PDF</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'agregar_minuta' %}" class="btn btn-primary" style="margin-left:20px;">Agregar Minuta</a>
+    {% endblock %}
