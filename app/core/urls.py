@@ -38,5 +38,6 @@ urlpatterns = [
     path('usuario/', include('usuario.urls'), name='usuario'),
     path('minutas/', include('minuta.urls')),
     path('titulacion/', include('Titulacion.urls')),
+    path('forms/', include('formularios.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

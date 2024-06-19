@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'usuario',
     'minuta',
     'Titulacion',
+    'formularios',
 ]
 
 MIDDLEWARE = [
