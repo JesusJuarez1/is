@@ -1,64 +1,116 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+        html,
+        body,
+        .container-fluid {
+          height: 100%;
+        }
+      
+        .row {
+          display: flex;
+          height: 100%;
+        }
+      
+        .col-md-2.sidebar-container {
+          overflow-y: auto;
+        }
+      
+        .col-md-10 {
+          overflow-y: auto;
+        }
+        body {
+          display: flex;
+          flex-direction: column;
+          min-height: 100vh;
+          margin: 0;
+        }
+      
+        .content-container {
+          flex: 1;
+        }
+      
+        footer {
+          flex-shrink: 0;
+        }
+    </style>
     <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
-    <title>SERVICIO DE TUTORIAS</title>
+    <link rel="stylesheet" href="{%static '/bootstrap/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{%static '/css/Montserrat.css'%}">
+    <link rel="stylesheet" href="{%static '/css/Navbar-Right-Links-Dark-icons.css'%}">
+    <link rel="stylesheet" href="{%static '/css/fontawesome.css'%}">
+    <link rel="shortcut icon" href="{% static 'images/favico.png' %}" type="image/x-icon">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js" crossorigin="anonymous"></script>
+    <title>{% block title %}Ingeniería de Software{% endblock title %}</title>
+    {% block head %}
+        
+    {% endblock head %}
+        
 </head>
 <body>
-    <!-- NAV BAR PARA QUE MUESTRE EN TODAS LOS HTMLS QUE EXTIENDAN DE MAIN -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <!-- NAV PARA MOSTRAR EL TITULO -->
-        <a class="navbar-brand" href="{% url 'home_page' %}">UAZ TUTORIAS</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <nav class="navbar navbar-light navbar-expand-lg fw-normal shadow-sm py-1">
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg">
+                <a class="navbar-brand">
+                    <img src="{% static 'images/logo.png' %}" href="{% url 'home_page' %}" width="300" height="auto" class="img-fluid" alt="Logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navcol-5">
+                    <span class="visually-hidden">Toggle navigation</span>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navcol-5">
+                    <!-- Aquí coloca tus elementos de navegación -->
+                </div>
+            </nav>
 
-        <!-- NAV QUE MUESTRA COMO MENU DE HAMBURGUESA CUANDO LA PAGINA SE HACE EN MODO DISPOSITIVO MOVIL -->
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <!-- ENCARGADO DE MOSTRAR EL TITULO DE EVALIACIONES Y REDIRECCIONAR A LA PAGINA DE EVALUACIONES -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'evaluaciones' %}">EVALUACIONES</a>
-                </li>
-                <!-- ENCARGADO DE MOSTRAR EL TITULO DE TITULACIONES Y REDIRECCIONAR A LAS FORMAS DE TITULACION -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'mostrar_titulacion' %}">TITULACIONES</a>
-                </li>
-                <!-- ENCARGADO DE MOSTRAR EL TITULO DE LOS DOCENTES Y REDIRECCIONAR A UN LISTADO DE DOCENTES QUE SON TUTORES -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'index' %}">TUTORES</a>
-                </li>
-                <!-- ENCARGADO DE MOSTRAR EL TITULO DE la TRAYECTORIA ESCOLAR DEL ALUMNO Y REDIRECCIONAR AL APARTADO DE HISTORIALES DE ALUMNOS -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'historial_alumno' %}">TRAYECTORIA ESCOLAR</a>
-                </li>
-            </ul>
-
-            <!-- BOTON ENCARGADO DE MOSTRARSE AL FINAL DEL NAVBAR -->
-            <div class="ms-auto d-flex align-items-center">
-                {% if user.is_authenticated %}
-                    <a href="{% url 'perfil_usuario' user.id %}" class="navbar-text me-3 text-white text-decoration-none">{{ user.nombre }}</a>
-                    <form class="form-inline" method="post" action="{% url 'logout' %}">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-outline-primary">Cerrar Sesión</button>
-                    </form>
-                {% else %}
-                    <form class="form-inline">
-                        <a type="button" href="{% url 'login' %}" class="btn btn-outline-primary">LOGIN</a>
-                    </form>
-                {% endif %}
+            <div class="collapse navbar-collapse" id="navcol-5">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'home_page' %}">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'agregar_minuta' %}">Minutas</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'titulacion' %}">Titulación</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'index' %}">Tutorías</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'historial_alumno' %}">Trayectoria Escolar</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'forms' %}">Formularios</a></li>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <span class="nav-item">{{user.nombre}}</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-white border-0 rounded-0 rounded-bottom m-0">
+                            {% if request.user.is_authenticated %}
+                            <a href="{% url 'perfil_usuario' user.id %}" class="dropdown-item">Perfil</a>
+                            {% endif %}
+                            
+                            
+                            {% comment %}
+                                <a href="{% url 'cambiar_password' %}" class="dropdown-item">Cambiar contraseña</a>
+                                {% if user.is_superuser or user.is_staff %}
+                                <a href="{% url 'usuarios' %}" class="dropdown-item">Gestión de Usuarios</a>
+                                {% endif %}
+                            {% endcomment %}
+                            
+                            <a href="{% url "logout" %}" class="dropdown-item">Salir</a>
+                        </div>
+                    </div>
+                </ul>
             </div>
         </div>
     </nav>
 
     <!-- ESTO FUNCIONA PARA AGREGAR CONTENIDO SIN TENER QUE CREAR TODA LA ESTRUCTURA DEL HTML -->
     {% block content %}
-    {% endblock %}
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    {% endblock content %}
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{%static '/bootstrap/js/bootstrap.min.js'%}"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="{%static '/js/messages_timer.js'%}"></script>
+    
+    {% block scripts %}
+        
+    {% endblock scripts %}
+        
 </body>
 </html>

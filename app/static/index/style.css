@@ -16,11 +16,6 @@ body{
     margin-bottom: 0.5rem;
 }
 
-.topnav{
-    float: left;
-    width: 100vw;
-}
-
 .navbar-icon{
     float: left;
 }
@@ -29,7 +24,6 @@ body{
     position: relative;
     vertical-align: middle;
     margin-top: 0.75rem;
-    font-family: "Product Sans";
     color: #5f6368;
     padding-left: 1rem;
 }
@@ -90,7 +84,6 @@ body{
 
 .sidebar-title{
     margin-top: 50px;
-    font-family: "Google Sans";
     font-size: 1.3rem;
     border-bottom: 1px solid #888;
     text-align: center;
@@ -108,7 +101,7 @@ body{
 
 .create-form{
     background-color: #f1f3f4;
-    width: 100vw;
+    width: 100%;
     float: left;
 }
 

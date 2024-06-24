@@ -1,13 +1,17 @@
-{% extends 'index/layout.html' %}
+{% extends 'main.html' %}
 {% block title %}
-{{form.title}} ~ Google Forms CLONE
+{{form.title}}
 {% endblock %}
 {% load static %}
-{% block script %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'index/style.css' %}">
+<link rel="stylesheet" href="{% static 'index/HurlUI.css' %}">
 <script src="{% static 'index/form.js' %}"></script>
 <script src="{% static 'lib/cookie.min.js' %}"></script>
-{% endblock %}
-{% block body %}
+{% endblock head %}
+
+{% block content %}
 <div class = "container-fluid">
     <div class="form-topnav">
         <a href = "/">
@@ -223,4 +227,4 @@
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}

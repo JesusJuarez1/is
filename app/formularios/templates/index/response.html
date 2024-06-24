@@ -1,13 +1,19 @@
-{% extends 'index/layout.html' %}
+{% extends 'main.html' %}
 {% load static %}
 {% load get_response %}
 {% load to_int %}
 {% load is_response %}
 {% load score %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'index/style.css' %}">
+<link rel="stylesheet" href="{% static 'index/HurlUI.css' %}">
+<script src="{% static 'index/form.js' %}"></script>
+<script src="{% static 'lib/cookie.min.js' %}"></script>
+{% endblock head %}
 {% block script %}
 <script src="{% static 'index/response.js' %}"></script>
 {% endblock %}
-{% block body %}
+{% block content %}
 <div class="container-fluid">
     <div class="container">
         <span id="bg-color" style="display: none;">{{form.background_color}}</span>
@@ -74,4 +80,4 @@
         </a>
     {% endif %}
 </div>
-{% endblock %}
+{% endblock content %}

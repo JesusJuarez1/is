@@ -1,0 +1,70 @@
+.bs-icon {
+  --bs-icon-size: .75rem;
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--bs-icon-size);
+  width: calc(var(--bs-icon-size) * 2);
+  height: calc(var(--bs-icon-size) * 2);
+}
+
+.bs-icon-xs {
+  --bs-icon-size: 1rem;
+  width: calc(var(--bs-icon-size) * 1.5);
+  height: calc(var(--bs-icon-size) * 1.5);
+}
+
+.bs-icon-sm {
+  --bs-icon-size: 1rem;
+}
+
+.bs-icon-md {
+  --bs-icon-size: 1.5rem;
+}
+
+.bs-icon-lg {
+  --bs-icon-size: 2rem;
+}
+
+.bs-icon-xl {
+  --bs-icon-size: 2.5rem;
+}
+
+.bs-icon.bs-icon-circle {
+  border-radius: 50%;
+}
+
+.navbar {
+  font-family: 'Montserrat';
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.navbar .navbar-nav .nav-link:hover {
+  color: #A71E1C;
+}
+
+
+.dropdown{
+  font-family:'Montserrat';
+}
+
+
+footer .footer{
+  background-color: lightgray;
+  padding: 1em;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.bs-icon.bs-icon-primary-light {
+  color: #A71E1C;
+}
+
+
+.dropdown span{
+  color: black ;
+}

@@ -1,11 +1,16 @@
-{% extends 'index/layout.html' %}
+{% extends 'main.html' %}
 {% load static %}
-{% block title %}{{form.title}} ~ Google Forms CLONE{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'index/style.css' %}">
+<link rel="stylesheet" href="{% static 'index/HurlUI.css' %}">
+<script src="{% static 'index/form.js' %}"></script>
+<script src="{% static 'lib/cookie.min.js' %}"></script>
+{% endblock head %}
 {% block script %}
 <script src="{% static 'index/score.js' %}" defer></script>
 <script src="{% static 'lib/cookie.min.js' %}"></script>
 {% endblock %}
-{% block body %}
+{% block content %}
 <div class="container-fluid">
     <div class="form-topnav">
         <a href = "/">
@@ -196,4 +201,4 @@
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}

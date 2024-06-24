@@ -1,40 +1,23 @@
-{% extends 'index/layout.html' %}
+{% extends 'main.html' %}
 {% load static %}
 {% block script %}
-<script src = "{% static 'index/index.js' %}" defer></script>
-<script src="{% static 'lib/cookie.min.js' %}" defer></script>
+
 {% endblock %}
 {% load static %}
-{% block body %}
+
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'index/style.css' %}">
+<link rel="stylesheet" href="{% static 'index/HurlUI.css' %}">
+<script src = "{% static 'index/index.js' %}" defer></script>
+<script src="{% static 'lib/cookie.min.js' %}" defer></script>
+{% endblock head %}
+    
+{% block content %}
 <div class="container-fluid">
-    <div class="topnav nav-effect">
-        <div class="nav-padding">
-            <span class="nav-ham" id="nav-ham">&#9776;</span>
-            <img src = "{% static 'Icon/icon.png' %}" alt = "Google Forms Icon(CLONE)" class="navbar-icon form-icon" title = "Forms">
-            <span class="nav-text" title = "Forms"><a href = "{% url 'forms' %}" class="nav-link">Forms CLONE</a></span>
-            <a href="{% url 'logout' %}">
-                <img src = "{% static 'Icon/Logout.jpg' %}" alt = "Logout Icon" class="navbar-icon float-right logout-icon" title = "Logout">
-            </a>
-        </div>
-    </div>
-    <div class="sidebar" id = "sidebar">
-        <span class="close-sidebar" id="close-sidebar">&times;</span>
-        <div class="sidebar-content">
-            <h4 class="sidebar-title">
-                <a href = "{% url 'index' %}" class="sidebar-title-link">
-                    <span>Google Forms CLONE</span>
-                </a>
-            </h4>
-            <p class="text-label">Found bug? Submit an issue <a href="https://github.com/kimlimjustin/google-form-clone/issues" class="link">here</a></p>
-            <p class="text-label">License: <a href="https://github.com/kimlimjustin/google-form-clone/blob/master/LICENSE" class="link">MIT</a></p>
-            <p class="text-label">Source code: <a href="https://github.com/kimlimjustin/google-form-clone">
-                <img src = "{% static 'Icon/github.png' %}" class="github-icon" alt="GitHub"></a></p>
-            <p class="text-label">Support creator by <a href="https://github.com/kimlimjustin/google-form-clone" class="link">give a star on GitHub</a></p>
-        </div>
-    </div>
     <div class="create-form">
         <div class="container">
-            <p class="forms-label">Start a new form</p>
+            <p class="forms-label">Crea un nuevo formulario</p>
             <div class="form-template-box">
                 <img src = "{% static 'Icon/blank-form.png' %}" alt = "Blank form" title = "Blank form" id="create-blank-form">
                 <span class="form-template-label">Blank Form</span>
@@ -55,7 +38,7 @@
     </div>
     <div class="container">
         <div class="form-list">
-            <p class="forms-label">Your forms:</p>
+            <p class="forms-label">Tus Formularios:</p>
             {% for i in forms %}
             <a href = "{% url 'edit_form' i.code %}" class="form-list-link">
                 <div class="form-box">
@@ -71,4 +54,10 @@
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}
+
+
+{% block scripts %}
+
+{% endblock scripts %}
+    

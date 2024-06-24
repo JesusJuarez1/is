@@ -5,8 +5,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.core.mail import send_mail
-from django.core.exceptions import PermissionDenied
-
+from django.contrib.auth.views import LoginView as DjangoLoginView
+from django.contrib.auth.views import LoginView as DjangoLogoutView
+from django.urls import reverse_lazy
 from .forms import RegistrarUsuarioForm, DocumentoForm, LoginForm, NotificacionForm, SolicitudCambioActividadesForm
 from .models import CaseiUser, UserTipo, Documento
 from .functions import enviar_correo
@@ -163,7 +164,8 @@ def historial_alumno(request):
 #Template del historial de alumno (temporal) Pendinete implementar
 def actividades(request):
     return render(request,'usuario/actividades.html')
-#Funciones para el login y el logout de usuarios
+
+#Funciones para el login y el logout de usuarios    
 def login_view(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)

@@ -1,0 +1,47 @@
+.login-button:hover{
+  background-color: #163269;
+color: black;
+}
+
+.auth-logo img {
+max-width: 100%;
+height: auto;
+}
+
+p,a{
+color: black;
+}
+
+#login-button{
+background-color: #192f59; /* Color boton login*/
+color: #ffffff
+}
+
+#login-button:hover {
+background-color:  #162850; /* Cambia el color de fondo al pasar el cursor sobre el botón */
+color: #ffffff; /* Cambia el color del texto al pasar el cursor sobre el botón */
+/* Agrega cualquier otro estilo o efecto adicional que desees */
+}
+
+
+.password-toggle {
+position: absolute;
+top: 50%;
+right: 10px;
+transform: translateY(-50%);
+cursor: pointer;
+}
+
+.password-toggle i {
+display: none;
+}
+
+.password-toggle.show-password i.fa-eye {
+display: inline-block;
+}
+
+.password-toggle.show-password i.fa-eye-slash {
+display: none;
+}
+
+
