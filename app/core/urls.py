@@ -35,7 +35,7 @@ def home_page(request):
 urlpatterns = [
     path('', home_page,name='home_page'),
     path('admin/', admin.site.urls),
-    path('usuario/', include('usuario.urls'), name='usuario'),
+    path('usuario/', include('usuario.urls')),
     path('minutas/', include('minuta.urls')),
     path('titulacion/', include('Titulacion.urls')),
     path('forms/', include('formularios.urls')),

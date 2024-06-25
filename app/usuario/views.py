@@ -22,7 +22,7 @@ def registrar_usuario(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'El usuario ha sido registrado correctamente.')
-            return redirect('index')
+            return redirect('usuarios')
     else:
         form = RegistrarUsuarioForm()
     return render(request, 'usuario/registrar_usuarios.html', {'form': form})
@@ -33,6 +33,7 @@ def registrar_usuario(request):
 def lista_usuarios(request):
     usuarios = CaseiUser.objects.all()
     return render(request, 'usuario/lista_usuarios.html', {'usuarios': usuarios})
+
 # Obtiene un usuario especifico por llave primaria
 @login_required
 def obtener_usuario(request, pk):
@@ -42,6 +43,7 @@ def obtener_usuario(request, pk):
     except UserTipo.DoesNotExist:
         tipo = None
     return render(request, 'usuario/info_usuario.html', {'usuario_cacei': usuario, 'tipo_cacei': tipo.tipoUser})
+
 # Actualiza información de un usuario especifico por llave primaria
 @login_required
 @user_is_type('coordinador')
@@ -52,10 +54,11 @@ def editar_usuario(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, 'El usuario ha sido actualizado correctamente.')
-            return redirect('index')
+            return redirect('usuarios')
     else:
         form = RegistrarUsuarioForm(instance=usuario)
     return render(request, 'usuario/registrar_usuarios.html', {'form': form})
+
 # Elimina un usuario especifico por llave primaria
 @login_required
 @user_is_type('coordinador')
@@ -63,7 +66,7 @@ def eliminar_usuario(request, pk):
     usuario = get_object_or_404(CaseiUser, pk=pk)
     usuario.delete()
     messages.success(request, 'El usuario ha sido eliminado correctamente.')
-    return redirect('index')
+    return redirect('usuarios')
 
 #Manda al perfil al usuario (temporal) SI
 
@@ -81,7 +84,7 @@ def enviar_correo_usuario(request):
             }
             enviar_correo(notificacion)
             messages.success(request, 'Se ha enviado notificación correctamente.')
-            return redirect('index')
+            return redirect('usuarios')
     else:
         form = NotificacionForm()
     return render(request, 'usuario/enviar_correo_usuario.html', {'form': form})
@@ -132,6 +135,7 @@ def subir_documento(request):
     else:
         form = DocumentoForm()
     return render(request, 'usuario/subir_documento.html', {'form': form})
+
 #Eliminar documentos
 @login_required
 @user_is_type('coordinador')
@@ -143,12 +147,14 @@ def eliminar_documento(request, pk):
         return redirect('lista_documentos')
     else:
         return HttpResponse("No permitido", status=405)
+    
 #Enlistar y mostrar los documentos subidos
 @login_required
 @user_is_type('coordinador')
 def lista_documentos(request):
     documentos = Documento.objects.all()
     return render(request, 'usuario/lista_documentos.html', {'documentos': documentos})
+
 #Página de confirmación (temporal)
 @login_required
 def confirmacion(request):
@@ -157,6 +163,7 @@ def confirmacion(request):
 # Template de evaluaciones (temporal) Pendiente implementar
 def evaluacion_template(request):
     return render(request,'usuario/evaluaciones.html')
+
 #Template del historial de alumno (temporal) Pendinete implementar
 def historial_alumno(request):
     return render(request,'usuario/historial_alumno.html')
@@ -187,6 +194,7 @@ def logout_view(request):
     logout(request)
     messages.success(request, "Has cerrado sesión correctamente")
     return redirect('login')
+
 # Función para enviar correo de solicitud de cambio de actividades
 def enviar_solicitud_actividades(asunto, mensaje, destinatario):
     try:
@@ -200,6 +208,7 @@ def enviar_solicitud_actividades(asunto, mensaje, destinatario):
         return True, None
     except Exception as e:
         return False, str(e)
+    
 # Vista para solicitar cambio de actividades
 @login_required
 @user_is_type('estudiante')

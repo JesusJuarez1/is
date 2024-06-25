@@ -4,7 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', views.lista_usuarios, name='index'), # temporal
+    path('', views.lista_usuarios, name='usuarios'), # temporal
     path('registro/', views.registrar_usuario, name='registrar'),
     path('editar/<int:pk>', views.editar_usuario, name='editar'),
     path('eliminar/<int:pk>', views.eliminar_usuario, name='eliminar'),

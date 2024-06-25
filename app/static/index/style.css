@@ -1,6 +1,4 @@
 @import url("https://fonts.googleapis.com/css?family=Permanent+Marker");
-@import url("https://fonts.googleapis.com/css?family=Product+Sans");
-@import url("https://fonts.googleapis.com/css?family=Google+Sans");
 
 body{
     scroll-behavior: smooth;
@@ -106,7 +104,6 @@ body{
 }
 
 .forms-label{
-    font-family: "Google Sans";
     margin: 10px 10px 5px 10px;
 }
 
@@ -157,7 +154,6 @@ body{
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
     text-overflow: ellipsis;
-    font-family: "Google Sans";
     margin: 2.5px;
 }
 
@@ -174,7 +170,6 @@ body{
 
 .error-page{
     text-align: center;
-    font-family: "Roboto Condensed";
 }
 
 .form-topnav{
@@ -216,7 +211,6 @@ body{
     background-color: #673ab7;
     color: #ddd;
     font-size: 1rem;
-    font-family: "Google Sans";
     vertical-align: middle;
     border: 1px solid #ddd;
     padding: 10px 20px;
@@ -230,7 +224,6 @@ body{
 
 .form-title{
     font-size: 2rem;
-    font-family: "Google Sans";
     font-weight: normal;
     margin: 10px;
     width: -webkit-fill-available;
@@ -239,7 +232,6 @@ body{
 
 .form-description{
     font-size: 1rem;
-    font-family: "Roboto Condensed";
     margin: 10px;
     width: -webkit-fill-available;
     width: -moz-available;
@@ -289,20 +281,14 @@ body{
 }
 
 .modal-title{
-    font-family: "Google Sans";
     font-size: 1.2rem;
     border-bottom: 1px solid rgb(233, 232, 232);
     margin-bottom: 0;
 }
 
 .modal-subtitle{
-    font-family: "Roboto Condensed";
     font-size: 1rem;
     font-weight: normal;
-}
-
-.setting-form-label{
-    font-family: "Roboto Condensed";
 }
 
 .modal-division{
@@ -329,13 +315,11 @@ body{
     background-color: #673ab7;
     color: #ddd;
     font-size: 1rem;
-    font-family: "Google Sans";
 }
 
 .setting-preview-form, .setting-preview-form a{
     cursor: pointer;
     color: #bbb;
-    font-family: "Google Sans";
     text-decoration: none;
 }
 
@@ -345,23 +329,19 @@ body{
 
 .danger-zone{
     font-weight: bold;
-    font-family: "Google Sans";
     font-size: 1.4rem;
 }
 
 .delete-form-title{
     margin: 0;
-    font-family: "Roboto Condensed";
 }
 
 .delete-form-description{
     margin: 0;
-    font-family: "Poppins";
 }
 
 .delete-form-btn{
     font-size: 1rem;
-    font-family: "Poppins";
     padding: 3px !important;
     background-color: #E71C23;
     color: #fff;
@@ -388,7 +368,6 @@ body{
 }
 
 .question-title{
-    font-family: "Google Sans";
     font-size: 1.3rem;
     font-weight: normal;
 }
@@ -416,7 +395,6 @@ body{
 }
 
 .question-title{
-    font-family: "Google Sans";
     font-size: 1.5rem;
     width: 65%;
 }
@@ -439,7 +417,6 @@ body{
 
 .choice{
     margin: 5px 0;
-    font-family: "Google Sans";
 }
 
 .add-option{
@@ -452,7 +429,6 @@ body{
     width: 80%;
     border: none;
     overflow-y: hidden;
-    font-family: "Google Sans";
 }
 
 .remove-option{
@@ -468,13 +444,8 @@ body{
     border-top: 1px solid #ccc;
 }
 
-.required{
-    font-family: "Roboto Condensed";
-}
-
 .answers{
     margin: 5px;
-    font-family: "Google Sans";
 }
 
 .short-answer{
@@ -510,14 +481,12 @@ body{
 .form-navigation .active{
     color:rgb(0, 132, 223);
     font-weight: bold;
-    font-family: "Google Sans";
     font-size: 0.8rem;
 }
 
 .question-score{
     max-width: calc(25% - 8px);
     display: inline-block;
-    font-family: "Google Sans";
     margin: 1rem;
 }
 
@@ -532,7 +501,6 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .question-title-score{
-    font-family: "Google Sans";
     display: inline-block;
     width: 75%;
     font-size: 1.5rem;
@@ -545,7 +513,6 @@ input[type=number]::-webkit-outer-spin-button {
 }
 .answer-key-title, .feedback-title{
     margin: 0;
-    font-family: "Roboto Condensed";
     display: inline-block;
 }
 
@@ -577,20 +544,17 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .response-title{
-    font-family: "Google Sans";
     font-size: 1.5rem;
     font-weight: normal;
 }
 
 .score-title{
-    font-family: "Google Sans";
     margin: 10px;
     font-size: 1.2rem;
     font-weight: normal;
 }
 
 .question-title{
-    font-family: "Google Sans";
     font-size: 1.5rem;
 }
 
@@ -598,7 +562,6 @@ input[type=number]::-webkit-outer-spin-button {
     position: relative;
     background-color: #673ab7;
     color: #ddd;
-    font-family: "Google Sans";
     border: 1px solid #ddd;
     padding: 10px 20px;
     margin: 5px 15px;
@@ -609,7 +572,6 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .feedback-title{
-    font-family: "Poppins";
     font-size: 1.1rem;
     font-weight: normal;
 }
@@ -619,7 +581,6 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .form-template-label{
-    font-family: "Google Sans";
     margin: 10px;
     display: block;
 }
@@ -666,7 +627,6 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .response-summary-title{
-    font-family: "Google Sans";
     font-size: 1rem;
     font-weight: normal;
 }

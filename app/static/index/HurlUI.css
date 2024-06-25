@@ -1,11 +1,6 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed");
-@import url("https://fonts.googleapis.com/css?family=Poppins");
-@import url("https://fonts.googleapis.com/css?family=Montserrat");
-@import url("https://fonts.googleapis.com/css?family=Times+New+Roman");
 body{
 	margin: 0;
 	padding: 0;
-	font-family: "Times New Roman","Roboto Condensed", "Poppins","Arial";
 }
 
 .center{
@@ -124,7 +119,6 @@ body[theme="light"]{
 	text-decoration: none;
 	font-size: 1rem;
 	color: black;
-	font-family: "Poppins";
 }
 .btn-hover:hover{
 	box-shadow: 5px 2px 8px;
@@ -149,13 +143,8 @@ body[theme="light"]{
 .box-title, .heading-title{
 	font-weight: bold;
 	text-align: center;
-	font-family: "Montserrat";
 	padding: 2px 5px;
 	border-bottom: 0.5px solid #e6e6e6; 
-}
-
-.box-text{
-	font-family: "Roboto Condensed";
 }
 
 .box-shadow{
@@ -163,7 +152,6 @@ body[theme="light"]{
 }
 
 .form-label, .text-label{
-	font-family: "Poppins", "Arial";
 	margin: 10px 0;
 }
 
