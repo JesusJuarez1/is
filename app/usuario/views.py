@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -38,17 +38,22 @@ def lista_usuarios(request):
 @login_required
 def obtener_usuario(request, pk):
     usuario = get_object_or_404(CaseiUser, pk=pk)
+    if usuario != request.user:  # Asegúrate de que solo accede a su propia información
+        return HttpResponseForbidden("No tienes permiso para ver esta información.")
     try:
         tipo = UserTipo.objects.get(caseiuser=usuario)
     except UserTipo.DoesNotExist:
         tipo = None
     return render(request, 'usuario/info_usuario.html', {'usuario_cacei': usuario, 'tipo_cacei': tipo.tipoUser})
 
+
 # Actualiza información de un usuario especifico por llave primaria
 @login_required
-@user_is_type('coordinador')
+@user_is_type('coordinador')  # Solo coordinadores pueden editar otros usuarios
 def editar_usuario(request, pk):
     usuario = get_object_or_404(CaseiUser, pk=pk)
+    if usuario != request.user:  # Si el usuario no es el mismo
+        return HttpResponseForbidden("No tienes permiso para editar este perfil.")
     if request.method == 'POST':
         form = RegistrarUsuarioForm(request.POST, instance=usuario)
         if form.is_valid():
@@ -59,11 +64,14 @@ def editar_usuario(request, pk):
         form = RegistrarUsuarioForm(instance=usuario)
     return render(request, 'usuario/registrar_usuarios.html', {'form': form})
 
+
 # Elimina un usuario especifico por llave primaria
 @login_required
-@user_is_type('coordinador')
+@user_is_type('coordinador')  # Solo coordinadores pueden eliminar usuarios
 def eliminar_usuario(request, pk):
     usuario = get_object_or_404(CaseiUser, pk=pk)
+    if usuario == request.user:  # Prevenir que un usuario se elimine a sí mismo
+        return HttpResponseForbidden("No puedes eliminar tu propia cuenta.")
     usuario.delete()
     messages.success(request, 'El usuario ha sido eliminado correctamente.')
     return redirect('usuarios')
@@ -93,6 +101,9 @@ def enviar_correo_usuario(request):
 @login_required
 def perfil_usuario(request, pk):
     usuario = get_object_or_404(CaseiUser, pk=pk)
+    if usuario != request.user:  # Solo permite ver su propio perfil
+        return HttpResponseForbidden("No tienes acceso a este perfil.")
+    # Continuar con la lógica original
     try:
         tipo = UserTipo.objects.get(caseiuser=usuario)
         es_coordinador = tipo.tipoUser == 'coordinador'
@@ -106,11 +117,12 @@ def perfil_usuario(request, pk):
 
     return render(request, 'usuario/perfil_usuario.html', {
         'usuario': usuario,
-        'tipo_cacei': tipo.tipoUser if tipo else "N/A",  # Maneja casos donde tipo es None
+        'tipo_cacei': tipo.tipoUser if tipo else "N/A",
         'ultimo_documento': documentos,
         'es_coordinador': es_coordinador,
         'es_tutor': es_tutor
     })
+
 
 
 #Función para subir los documentos
