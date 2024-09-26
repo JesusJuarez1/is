@@ -8,6 +8,7 @@
 {% endblock head %}
 {% block script %}
 <script src="{% static 'index/viewform.js' %}" defer></script>
+
 {% endblock %}
 {% block content %}
 <div class="container-fluid">
@@ -45,10 +46,11 @@
             {% elif question.question_type == "checkbox" %}
             {% for choice in question.choices.all %}
                 <div class="multiple-choice">
-                    <input type="checkbox" name="{{question.id}}" id="{{choice.id}}" {% if question.required %} required {% endif %} value="{{choice.id}}">
+                    <input type="checkbox" name="{{question.id}}" id="{{choice.id}}" value="{{choice.id}}">
                     <label for="{{choice.id}}" class="txtClr">{{choice.choice}}</label>
                 </div>
                 {% endfor %}
+                
             {% endif %}
         </div>
         {% endfor %}
@@ -60,6 +62,27 @@
         <a href="{% url 'edit_form' form.code %}">
             <img src="{% static 'Icon/question.png' %}" alt="Edit Question" title="Edit this form" class="edit-form-link">
         </a>
+    {% endif %}
+    {% if question.required %}
+    <script>
+        function verificar(){
+            var suma = 0;
+            var los_cboxes = document.getElementsByName('{{question.id}}'); 
+            for (var i = 0, j = los_cboxes.length; i < j; i++) {
+                
+                if(los_cboxes[i].checked == true){
+                suma++;
+                }
+            }
+            
+            if(suma == 0){
+                alert('debe seleccionar una casilla');
+                return false;
+            }else{
+                alert(suma);
+            }
+        }
+    </script>
     {% endif %}
 </div>
 {% endblock content %}
