@@ -19,7 +19,6 @@ urlpatterns = [
     path('actividades/', views.actividades, name='actividades'), # URL TEMPORAL
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
-    path('perfil/<int:pk>/', views.perfil_usuario, name='perfil_usuario'),
+    path('perfil/', views.perfil_usuario, name='perfil_usuario'),  # Sin el <int:pk>
     path('solicitar_cambio_actividades/', views.solicitar_cambio_actividades, name='solicitar_cambio_actividades'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-

@@ -12,7 +12,7 @@
                     <div class="btn-group" role="group" aria-label="Opciones">
                         <a href="{% url 'editar' usuario.pk %}" class="btn btn-warning">Editar</a>
                         <a href="{% url 'eliminar' usuario.pk %}" class="btn btn-danger">Eliminar</a>
-                        <a href="{% url 'perfil_usuario' usuario.pk %}" class="btn btn-primary">Perfil</a>
+                        <a href="{% url 'perfil_usuario' %}" class="btn btn-primary">Perfil</a>
                     </div>
                 </li>
                 {% endfor %}

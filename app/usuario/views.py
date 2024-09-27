@@ -99,11 +99,8 @@ def enviar_correo_usuario(request):
 #Perfil de usuario
 
 @login_required
-def perfil_usuario(request, pk):
-    usuario = get_object_or_404(CaseiUser, pk=pk)
-    if usuario != request.user:  # Solo permite ver su propio perfil
-        return HttpResponseForbidden("No tienes acceso a este perfil.")
-    # Continuar con la lógica original
+def perfil_usuario(request):
+    usuario = request.user  # Obtiene el usuario autenticado directamente
     try:
         tipo = UserTipo.objects.get(caseiuser=usuario)
         es_coordinador = tipo.tipoUser == 'coordinador'
@@ -122,7 +119,6 @@ def perfil_usuario(request, pk):
         'es_coordinador': es_coordinador,
         'es_tutor': es_tutor
     })
-
 
 
 #Función para subir los documentos
