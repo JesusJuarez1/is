@@ -2,10 +2,14 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from .models import Choices, Questions, Answer, Form, Responses
-import json
-import random
-import string
-import csv
+import json, random, string, csv, io
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+from reportlab.lib.utils import ImageReader
+from reportlab.lib import colors
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 
 # Create your views here.
 def forms(request):
@@ -821,3 +825,148 @@ def FourZeroThree(request):
 
 def FourZeroFour(request):
     return render(request, "error/404.html")
+
+
+# GENERAR REPORTE DE ENCUESTA
+def generar_reporte_encuesta(request, id):
+    encuesta = Form.objects.get(id=id)
+    respuestas = Responses.objects.filter(response_to=encuesta)
+
+    filename = f"Resultados {encuesta.title}.pdf"
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'inline; filename="{filename}"'
+
+    buffer = io.BytesIO()
+    p = canvas.Canvas(buffer, pagesize=letter)
+
+    title_font = "Helvetica-Bold"
+    title_size = 20
+    subtitle_font = "Helvetica-Bold"
+    subtitle_size = 14
+    content_font = "Helvetica"
+    content_size = 12
+
+    x = 100
+    y = 750
+    line_height = 20
+
+    # Título
+    p.setFont(title_font, title_size)
+    p.drawString(x, y, f"Resultados de la encuesta: {encuesta.title}")
+    y -= line_height
+    
+    # Descripción
+    p.setFont(subtitle_font, subtitle_size)
+    p.drawString(x, y, "Descripción:")
+    y -= line_height
+    y, p = verificar_salto_pagina(p, y, line_height)
+    p.setFont(content_font, content_size)
+    p.drawString(x, y, f"{encuesta.description}")
+    y -= line_height
+    y, p = verificar_salto_pagina(p, y, line_height)
+
+    # Numero de participantes
+    num_participantes = respuestas.count()
+    p.setFont(subtitle_font, subtitle_size)
+    p.drawString(x, y, f"Participantes totales: {num_participantes}")
+    y -= line_height
+    y, p = verificar_salto_pagina(p, y, line_height)
+
+    # Gráficas de preguntas de opción múltiple
+    for question in encuesta.questions.all():
+        y, p = verificar_salto_pagina(p, y, line_height * 2)
+        if question.question_type == 'short' or question.question_type == 'paragraph':
+            # Pregunta
+            p.setFont(subtitle_font, subtitle_size)
+            p.drawString(x, y, f"{question.question}")
+            y -= line_height
+            y, p = verificar_salto_pagina(p, y, line_height*2)
+            y, p = tabla_pregunta_abierta(question, x, y, p)
+            y -= line_height
+
+        elif question.question_type == 'multiple choice' or question.question_type == 'checkbox':
+            y, p = verificar_salto_pagina(p, y, line_height+225 )
+            grafica_multiple_choice(question, p, x, y) #Cada pregunta de opción multiple genera su grafica
+            y -= 225 + line_height
+            y, p = verificar_salto_pagina(p, y, line_height)
+
+    p.showPage()
+    p.save()
+
+    pdf = buffer.getvalue()
+    buffer.close()
+
+    response.write(pdf)
+    
+    return response
+    
+#Genera y pone la imagen de la grafica resultate de preguntas de option multiple
+def grafica_multiple_choice(question, p, x, y):
+    choices = question.choices.all()
+    choice_labels = [choice.choice for choice in choices]
+    choice_counts = []
+
+    for choice in choices:
+        count = Answer.objects.filter(answer_to=question, answer=choice.pk).count()
+        choice_counts.append(count)
+
+    # Crear gráfico de barras con Matplotlib
+    plt.figure(figsize=(5, 3))
+    plt.bar(choice_labels, choice_counts, color='blue')
+    plt.title(question.question)
+    plt.xticks(rotation=45, ha="right")
+    plt.tight_layout()
+
+    # Guardar el gráfico en un buffer de imagen
+    img_buffer = io.BytesIO()
+    plt.savefig(img_buffer, format='png')
+    img_buffer.seek(0)
+
+    # Insertar la imagen en el PDF
+    try:
+        p.drawImage(ImageReader(img_buffer), x, y - 225, width=400, height=225)
+    except Exception as e:
+        print(f"Error al insertar imagen: {e}")
+
+    img_buffer.close()
+    plt.close()
+        
+#Genera una tabla para las preguntas abiertas (cortas y de parrafo)
+def tabla_pregunta_abierta(question, x, y, p):
+    # Crear tabla
+    data = [["Respondido por", "Respuesta"]]  # Encabezados de la tabla
+    respuestas = Answer.objects.filter(answer_to=question)
+    for respuesta in respuestas:
+        response_obj = Responses.objects.filter(response__in=[respuesta]).first()
+        if response_obj:
+            # Obtener el nombre del usuario que respondió
+            responder_nombre = response_obj.responder.username if response_obj.responder else "Anónimo"
+            # Añadir fila a la tabla
+            data.append([responder_nombre, respuesta.answer])
+
+    # Crear la tabla
+    table = Table(data)
+    style = TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black),
+    ])
+    table.setStyle(style)
+
+    # Ajustar posición y agregar la tabla al PDF
+    table_width, table_height = table.wrap(400, 400)
+    y, p = verificar_salto_pagina(p, y-table_height, 20)
+    table.drawOn(p, x, y)  # Ajusta la posición según sea necesario
+    return y, p
+
+# Función para verificar si queda espacio suficiente en la página
+def verificar_salto_pagina(p, y, line_height):
+    if y-line_height < 50:  # Si `y` es menor que el margen, crear una nueva página
+        p.showPage()
+        p.setFont("Helvetica", 12)  # Restablecer la fuente
+        return 750, p  # Restablecer la coordenada `y` para la nueva página
+    return y, p
